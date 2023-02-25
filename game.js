@@ -16,11 +16,15 @@ function space(){
 let rocketY = 20;
 let velocity = 0.1;
 let acceleration = 0.07;
+let rocketX = 280;
 function draw(){
     space();
-    rocket(280, rocketY);
+    rocket(rocketX, rocketY);
     rocketY = rocketY + velocity;
     velocity = velocity + acceleration;
+    if (keyIsDown(UP_ARROW)){
+        rocketY = rocketY + 1;
+    }
 }
 
-function draw()
+
