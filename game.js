@@ -5,70 +5,85 @@ let isGameLost = false;
 let rocketY = 20;
 let velocity = 0.1;
 let acceleration = 0.07;
-let rocketX = 440;
+let rocketX = 90;
 let enter = "Press Enter to start!";
+let beamHeight = 0;
 
-createCanvas(900, 600);
-background(255, 255, 255);
+createCanvas(1050, 600);
+function beam(x, y) {
+  translate(x, y);
+  fill(57, 255, 20);
+  triangle(50, 72, 70, 72, 59, beamHeight);
+}
 
 function rocket(x, y) {
   push();
   translate(x, y);
 
-  fill(255, 255, 255);
-  stroke(0);
-  strokeWeight(1);
-  rect(10, 10, 20, 50, 5);
+  fill(170);
+  stroke(255);
+  strokeWeight(2);
+  ellipse(20, 65, 20, 20);
+  fill(230, 230, 230);
 
-  fill(245, 245, 245);
+  stroke(255);
+  strokeWeight(2);
+  ellipse(20, 70, 40, 12);
+
+  fill(57, 255, 20);
   noStroke();
-  rect(12, 12, 16, 36, 3);
-
-  fill(0, 0, 0);
-  noStroke();
-  rect(14, 48, 12, 4);
-
-  fill(0, 0, 0);
-  noStroke();
-  rect(14, 54, 12, 4);
-
-  fill(255, 255, 255);
-  stroke(0);
-  strokeWeight(1);
-  triangle(20, 6, 10, 10, 30, 10);
-
-  fill(255, 255, 255);
-  stroke(0);
-  strokeWeight(1);
-  rect(10, 60, 20, 5, 2);
-
-  fill(229, 46, 44);
-  stroke(0);
-  strokeWeight(1);
-  rect(8, 65, 24, 10, 3);
-
-  fill(0, 0, 0);
-  noStroke();
-  rect(12, 72, 16, 3);
-
-  fill(255, 255, 255);
-  stroke(0);
-  strokeWeight(1);
-  rect(13, 75, 14, 5, 2);
-
-  fill(0, 0, 0);
-  noStroke();
-  rect(14, 78, 12, 2);
-
-  fill(245, 245, 245);
-  noStroke();
-  rect(14, 15, 12, 30, 3);
-
+  stroke(130);
+  ellipse(20, 72, 25, 5);
   pop();
 }
 
 function space() {
+  createCanvas(1050, 600);
   background(65, 100, 100);
+  fill(255);
+  noStroke();
+  for (let i = 0; i < 10; i++) {
+    let x = random(width);
+    let y = random(height);
+    let size = random(1, 5);
+    ellipse(x, y, size, size);
+  }
+  fill(22);
+  strokeWeight(8);
+  stroke(255, 255, 255);
+  beginShape();
+  vertex(0, 37);
+  bezierVertex(0, 37, 20, 20, 20, 550);
+  bezierVertex(50, 580, 70, 450, 120, 500);
+  bezierVertex(170, 550, 180, 500, 250, 570);
+  bezierVertex(320, 640, 400, 350, 460, 500);
+  bezierVertex(520, 650, 540, 500, 580, 570);
+  bezierVertex(620, 640, 680, 500, 740, 580);
+  bezierVertex(800, 660, 840, 470, 870, 590);
+  bezierVertex(870, 590, 900, 590, 1000, 590);
+  bezierVertex(1050, 580, 1000, 20, 1050, 30);
+  vertex(1050, 600);
+  vertex(0, 600);
+  endShape(CLOSE);
+  noStroke();
+
+  strokeWeight(4);
+  beginShape();
+  vertex(0, 37);
+  bezierVertex(0, 37, 20, 20, 20, 550);
+  bezierVertex(50, 580, 70, 450, 120, 500);
+  bezierVertex(170, 550, 180, 500, 250, 570);
+  bezierVertex(320, 640, 400, 350, 460, 500);
+  bezierVertex(520, 650, 540, 500, 580, 570);
+  bezierVertex(620, 640, 680, 500, 740, 580);
+  bezierVertex(800, 660, 840, 470, 870, 590);
+  bezierVertex(870, 590, 900, 590, 1000, 590);
+  bezierVertex(1050, 580, 1000, 20, 1050, 30);
+  vertex(1050, 600);
+  vertex(0, 600);
+  endShape(CLOSE);
+
+  noStroke();
 }
 
 function won(x, y) {
@@ -103,7 +118,12 @@ function menu() {
 }
 
 function keyPressed() {
-  if (keyCode === 13) {
+  if (
+    keyCode === 13 &&
+    isGameActive === false &&
+    isGameLost === false &&
+    isGameWon === false
+  ) {
     isGameActive = true;
   }
 }
@@ -124,6 +144,8 @@ function draw() {
 
     if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
       velocity = velocity - 0.15;
+      beam(rocketX - 40, rocketY + 5);
+      beamHeight = beamHeight + moveSideWays;
     }
     if (keyIsDown(LEFT_ARROW)) {
       rocketX = rocketX - moveSideWays - 0.5;
