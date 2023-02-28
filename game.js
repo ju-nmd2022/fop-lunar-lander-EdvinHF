@@ -201,15 +201,32 @@ function draw() {
     if (keyIsDown(LEFT_ARROW)) {
       rocketX = rocketX - moveSideWays - 0.5;
     }
+
     if (keyIsDown(RIGHT_ARROW)) {
       rocketX = rocketX + moveSideWays + 0.5;
     }
-
-    if (rocketY > 515 && velocity < 0.8) {
+    if (rocketY < -50) {
+      velocity = -velocity;
+    }
+    if (rocketY > 513 && rocketX > 865 && velocity < 5) {
       isGameActive = false;
       isGameWon = true;
     }
-    if (rocketY > 515 && velocity >= 0.8) {
+    if (
+      rocketX > 980 ||
+      (rocketY > 513 && rocketX <= 851) ||
+      (rocketY > 513 && velocity >= 5) ||
+      (rocketX > 770 && rocketX < 865 && rocketY > 480) ||
+      (rocketX > 620 && rocketX < 730 && rocketY > 479) ||
+      (rocketX > 490 && rocketX < 578 && rocketY > 479) ||
+      (rocketX > 320 && rocketX < 450 && rocketY > 390) ||
+      (rocketX > 290 && rocketX < 320 && rocketY > 475) ||
+      (rocketX > 220 && rocketX < 290 && rocketY > 500) ||
+      (rocketX > 116 && rocketX < 220 && rocketY > 460) ||
+      (rocketX > 40 && rocketX < 116 && rocketY > 410) ||
+      (rocketX < 40 && rocketY > 440) ||
+      rocketX < 15
+    ) {
       isGameActive = false;
       isGameLost = true;
     }
