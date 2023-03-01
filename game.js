@@ -1,5 +1,6 @@
 function setup() {
-  createCanvas(1050, 600);
+  const canvas = createCanvas(1050, 600);
+  canvas.parent("dad");
 }
 let startMenu = true;
 let isGameActive = false;
@@ -200,11 +201,11 @@ function draw() {
       beam();
       beamHeight = moveSideWays * 3;
     }
-    if (keyIsDown(LEFT_ARROW)) {
+    if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
       rocketX = rocketX - moveSideWays - 0.5;
     }
 
-    if (keyIsDown(RIGHT_ARROW)) {
+    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
       rocketX = rocketX + moveSideWays + 0.5;
     }
     if (rocketY < -50) {
