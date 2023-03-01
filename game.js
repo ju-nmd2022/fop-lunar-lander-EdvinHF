@@ -1,3 +1,6 @@
+function setup() {
+  createCanvas(1050, 600);
+}
 let startMenu = true;
 let isGameActive = false;
 let isGameWon = false;
@@ -7,11 +10,10 @@ let velocity = 0.1;
 let acceleration = 0.07;
 let rocketX = 90;
 let enter = "Press Enter to start!";
-let beamHeight = 0;
-//noCursor();
+
+noCursor();
 frameRate(60);
 
-createCanvas(1050, 600);
 function beam() {
   fill(200);
   for (let i = 0; i < 5; i++) {
@@ -61,8 +63,8 @@ function space() {
   translate(-400, -400);
   beginShape();
 
-  vertex(0, 37);
-  bezierVertex(0, 37, 20, 20, 20, 550);
+  vertex(0, 50);
+  bezierVertex(0, 37, 20, 50, 20, 550);
   bezierVertex(50, 580, 70, 450, 120, 500);
   bezierVertex(170, 550, 180, 500, 250, 570);
   bezierVertex(320, 640, 400, 350, 460, 500);
@@ -84,7 +86,7 @@ function space() {
   beginShape();
 
   vertex(0, 37);
-  bezierVertex(0, 37, 20, 20, 20, 550);
+  bezierVertex(0, 37, 20, 50, 20, 550);
   bezierVertex(50, 580, 70, 450, 120, 500);
   bezierVertex(170, 550, 180, 500, 250, 570);
   bezierVertex(320, 640, 400, 350, 460, 500);
@@ -103,7 +105,7 @@ function space() {
   stroke(255, 255, 255);
   beginShape();
   vertex(0, 37);
-  bezierVertex(0, 37, 20, 20, 20, 550);
+  bezierVertex(0, 37, 20, 50, 20, 550);
   bezierVertex(50, 580, 70, 450, 120, 500);
   bezierVertex(170, 550, 180, 500, 250, 570);
   bezierVertex(320, 640, 400, 350, 460, 500);
@@ -120,7 +122,7 @@ function space() {
   strokeWeight();
   beginShape();
   vertex(0, 37);
-  bezierVertex(0, 37, 20, 20, 20, 550);
+  bezierVertex(0, 37, 20, 50, 20, 550);
   bezierVertex(50, 580, 70, 450, 120, 500);
   bezierVertex(170, 550, 180, 500, 250, 570);
   bezierVertex(320, 640, 400, 350, 460, 500);
@@ -131,27 +133,27 @@ function space() {
   bezierVertex(1050, 580, 1000, 20, 1050, 30);
   vertex(1050, 600);
   vertex(0, 600);
-  endShape(CLOSE);
+  endShape();
 
   noStroke();
 }
 
-function won(x, y) {
+function won() {
   push();
-  translate(0, 0);
-  text("Victory Royal! You have landed succesfully! ", 340, 250);
+
+  text("Victory Royal! You have landed succesfully! ", 380, 250);
   pop();
 }
 
 function lost(x, y) {
   push();
   translate(0, 0);
-  text("Slow down cowboy! You lost!", 370, 250);
+  text("Slow down cowboy! You lost!", 415, 250);
   pop();
 }
 
 function again() {
-  text("Press R to restart", 410, 300);
+  text("Press R to restart", 450, 300);
 }
 
 function restart() {
@@ -161,11 +163,11 @@ function restart() {
   rocketY = 20;
   velocity = 0.1;
   acceleration = 0.09;
-  rocketX = 440;
+  rocketX = 90;
   beamHeight = 0;
 }
 function menu() {
-  text(enter, 410, 300);
+  text(enter, 460, 300);
 }
 
 function keyPressed() {
@@ -208,14 +210,14 @@ function draw() {
     if (rocketY < -50) {
       velocity = -velocity;
     }
-    if (rocketY > 513 && rocketX > 865 && velocity < 5) {
+    if (rocketY > 513 && rocketX > 865 && velocity < 0.9) {
       isGameActive = false;
       isGameWon = true;
     }
     if (
       rocketX > 980 ||
       (rocketY > 513 && rocketX <= 851) ||
-      (rocketY > 513 && velocity >= 5) ||
+      (rocketY > 513 && velocity >= 0.9) ||
       (rocketX > 770 && rocketX < 865 && rocketY > 480) ||
       (rocketX > 620 && rocketX < 730 && rocketY > 479) ||
       (rocketX > 490 && rocketX < 578 && rocketY > 479) ||
